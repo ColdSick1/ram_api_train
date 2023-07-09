@@ -33,7 +33,6 @@ class _CharacterCardState extends State<CharacterCard> {
 
   @override
   Widget build(BuildContext context) {
-    // final cubit = IsFavoriteCubit();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),

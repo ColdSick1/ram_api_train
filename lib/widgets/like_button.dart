@@ -11,28 +11,27 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
+  final cubit = IsFavoriteCubit();
+
   @override
   Widget build(BuildContext context) {
-    bool isFavorite = true;
-    // final cubit = IsFavoriteCubit();
-    return BlocBuilder<IsFavoriteCubit, IsFavoriteState>(
-      bloc: IsFavoriteCubit(),
+    return BlocBuilder<IsFavoriteCubit, bool>(
+      bloc: cubit,
       builder: (context, state) {
-        if (state is IsFavoriteInitial) {
-          return Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton.filled(
-                onPressed: () {
-                  setState(() {
-                    isFavorite = !isFavorite;
-                  });
-                },
-                icon: Icon(Icons.favorite,
-                    color: isFavorite ? Colors.red : Colors.white)),
-          );
-        } else {
-          return const Icon(Icons.delete_forever);
-        }
+        return Align(
+          alignment: Alignment.bottomRight,
+          child: IconButton.filled(
+            onPressed: () {
+              state ? cubit.tapLike(false) : cubit.tapLike(true);
+            },
+            icon: state
+                ? const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  )
+                : const Icon(Icons.favorite_border),
+          ),
+        );
       },
     );
   }
